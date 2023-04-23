@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.example.thboard.mapper.UserMapper">
+
+    <!--사용자 목록-->
+    <select id="selectUsers" resultType="UserVo">
+        SELECT '김경호' as name
+             , 'kimkyoungho1987@naver.com' as email
+             , '가수' as job
+             , '부활절'  as team
+          from dual
+    </select>
+
+</mapper>

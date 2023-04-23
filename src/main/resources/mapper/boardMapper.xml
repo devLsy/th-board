@@ -3,6 +3,37 @@
 
 <mapper namespace="study.example.thboard.mapper.BoardMapper">
 
+    <!--게시글 목록-->
+    <select id="selectBoards" resultType="BoardVo">
+        SELECT '미 연준 자이언트 스텝!!' as title
+             , '미국 연준에서 기준금리를 0.75bps 인상하는 자이언트 스텝을 감행했습니다.' as content
+             , '꼬비' as writer
+             , TO_CHAR(SYSDATE,'YYYY-MM-DD')  as regDate
+          from dual
 
+        UNION all
+
+        SELECT '금지된 사랑'
+             , '내 사랑에 세상도 양보한 널'
+             , '김경호'
+             , TO_CHAR(SYSDATE,'YYYY-MM-DD')  as regDate
+          from dual
+
+        UNION all
+
+        SELECT '천년의 사랑'
+             , '나를 위해서 눈물도 참아야 했던 그동안에 넌 얼마나 힘이 들었니'
+             , '박완규'
+             , TO_CHAR(SYSDATE,'YYYY-MM-DD')
+          from dual
+
+        UNION all
+
+        SELECT 'never ending story'
+             , '그리워하면 언젠간 만나게 되는 ~ 어느 영화와 같은 일 들이 이뤄져 가기를'
+             , '부활'
+             , TO_CHAR(SYSDATE,'YYYY-MM-DD')
+          from dual
+    </select>
 
 </mapper>
