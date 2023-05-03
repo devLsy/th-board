@@ -5,7 +5,14 @@
 
     <!--게시글 목록-->
     <select id="selectBoards" resultType="BoardVo">
-    
+        SELECT BOARD_NO AS boardNo
+             , TITLE AS title
+             , CONTENT AS content
+             , WRITER AS writer
+             , CREATE_DATE AS createDate
+             , UPDATE_DATE AS updateDate
+          FROM BOARD
+         ORDER BY CREATE_DATE DESC
     </select>
 
 </mapper>

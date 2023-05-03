@@ -17,6 +17,10 @@ public class BoardService {
 
     private final BoardMapper boardMapper;
 
+    /**
+     * 게시글 목록 조회 
+     * @return
+     */
     public List<BoardVo> getBoards() {
         return boardMapper.selectBoards();
     }

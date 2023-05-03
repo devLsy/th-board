@@ -8,6 +8,6 @@ import java.util.List;
 
 @Repository @Mapper
 public interface BoardMapper {
-
+    /* 게시글 목록 조회 */
     List<BoardVo> selectBoards();
 }
