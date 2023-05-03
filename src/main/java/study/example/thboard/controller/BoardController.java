@@ -14,7 +14,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(value = "board/*")
+@RequestMapping(value = "/board")
 public class BoardController {
 
     private final BoardService boardService;
@@ -23,11 +23,17 @@ public class BoardController {
      * 게시글 목록 조회
      * @return
      */
-    @GetMapping("list")
+    @GetMapping("")
     public ModelAndView list() {
-        ModelAndView mv = new ModelAndView("pages/board");
 
-        List<BoardVo> boardList = boardService.getBoards();
+        ModelAndView mv = new ModelAndView("pages/board");
+        List<BoardVo> boardList = null;
+
+        try {
+            boardList = boardService.getBoards();
+        } catch (Exception e) {
+            log.debug("Exception !! {}", e.getMessage());
+        }
 
         mv.addObject("list", boardList);
         return mv;

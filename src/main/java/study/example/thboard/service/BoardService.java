@@ -21,7 +21,32 @@ public class BoardService {
      * 게시글 목록 조회 
      * @return
      */
-    public List<BoardVo> getBoards() {
+    public List<BoardVo> getBoards() throws Exception{
         return boardMapper.selectBoards();
+    }
+
+    /**
+     * 게시글 등록
+     * @param boardVo
+     */
+    public void regBoard(BoardVo boardVo) throws Exception{
+        boardMapper.insertBoard(boardVo);
+    }
+
+    /**
+     * 게시글 상세 조회
+     * @param boardNo
+     * @return
+     */
+    public BoardVo getBoard(int boardNo) throws Exception{
+        return boardMapper.selectBoardDetail(boardNo);
+    }
+
+    /**
+     * 게시글 수정
+     * @param boardVo
+     */
+    public void modifyBoard(BoardVo boardVo) throws Exception{
+        boardMapper.updateBoard(boardVo);
     }
 }

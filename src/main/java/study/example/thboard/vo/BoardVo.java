@@ -5,8 +5,9 @@ import lombok.Data;
 @Data
 public class BoardVo extends CommonVo{
 
-    private Long boardNo;
+    private int boardNo;
     private String title;
     private String content;
     private String writer;
+    private String useYn;
 }

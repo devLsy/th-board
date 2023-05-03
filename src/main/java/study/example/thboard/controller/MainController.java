@@ -16,7 +16,7 @@ import java.util.List;
 @Controller
 @RequiredArgsConstructor
 @Slf4j
-@RequestMapping(value = "/main")
+@RequestMapping(value = "/")
 public class MainController {
 
     private final BoardService boardService;
@@ -24,14 +24,18 @@ public class MainController {
 
     @GetMapping(value = "")
     public ModelAndView main() {
-        ModelAndView mv = new ModelAndView();
+        ModelAndView mv = new ModelAndView("pages/main");
+        List<BoardVo> boardList = null;
 
-        List<BoardVo> boardList = boardService.getBoards();
-        List<UserVo> userList = userService.getUsers();
+        try {
+            boardList = boardService.getBoards();
+            List<UserVo> userList = userService.getUsers();
+            mv.addObject("list", boardList);
+            mv.addObject("userList", userList);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
-        mv.addObject("list", boardList);
-        mv.addObject("userList", userList);
-        mv.setViewName("pages/main");
         return mv;
     }
 
