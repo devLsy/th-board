@@ -26,7 +26,7 @@ public class BoardController {
     @GetMapping("")
     public ModelAndView list() {
 
-        ModelAndView mv = new ModelAndView("pages/board");
+        ModelAndView mv = new ModelAndView("pages/board/list");
         List<BoardVo> boardList = null;
 
         try {
@@ -38,4 +38,6 @@ public class BoardController {
         mv.addObject("list", boardList);
         return mv;
     }
+
+
 }

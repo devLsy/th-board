@@ -18,7 +18,8 @@ public class BoardService {
     private final BoardMapper boardMapper;
 
     /**
-     * 게시글 목록 조회 
+     * 게시글 목록 조회
+     * @throws Exception
      * @return
      */
     public List<BoardVo> getBoards() throws Exception{
@@ -28,6 +29,7 @@ public class BoardService {
     /**
      * 게시글 등록
      * @param boardVo
+     * @throws Exception
      */
     public void regBoard(BoardVo boardVo) throws Exception{
         boardMapper.insertBoard(boardVo);
@@ -36,6 +38,7 @@ public class BoardService {
     /**
      * 게시글 상세 조회
      * @param boardNo
+     * @throws Exception
      * @return
      */
     public BoardVo getBoard(int boardNo) throws Exception{
@@ -45,8 +48,18 @@ public class BoardService {
     /**
      * 게시글 수정
      * @param boardVo
+     * @throws Exception
      */
     public void modifyBoard(BoardVo boardVo) throws Exception{
         boardMapper.updateBoard(boardVo);
+    }
+
+    /**
+     * 게시글 삭제
+     * @param boardNo
+     * @throws Exception
+     */
+    public void deleteBoard(int boardNo) throws Exception{
+        boardMapper.deleteBoard(boardNo);
     }
 }

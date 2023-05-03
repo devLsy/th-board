@@ -33,6 +33,7 @@
                 </thead>
                 <tbody>
                     <tr th:each="list : ${list}">
+                        <td th:text="${list.boardNo}"><a th:href="" th:text="${list.boardNo}"></a></td>
                         <td th:text="${list.title}"></td>
                         <td th:text="${list.content}"></td>
                         <td th:text="${list.writer}"></td>

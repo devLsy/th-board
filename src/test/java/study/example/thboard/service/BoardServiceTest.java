@@ -57,15 +57,15 @@ class BoardServiceTest {
 //        //then
 //    }
 
-    @Test
-    @DisplayName("삭제")
-    @Commit
-    public void 삭제() throws Exception {
-        //givin
-        boardMapper.deleteBoard(1);
-        //when
-
-        //then
-    }
+//    @Test
+//    @DisplayName("삭제")
+//    @Commit
+//    public void 삭제() throws Exception {
+//        //givin
+//        boardMapper.deleteBoard(1);
+//        //when
+//
+//        //then
+//    }
 
 }

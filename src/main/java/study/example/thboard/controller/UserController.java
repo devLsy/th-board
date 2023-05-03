@@ -14,7 +14,7 @@ public class UserController {
     @GetMapping(value = "")
     public Object list() {
         ModelAndView mv = new ModelAndView();
-        mv.setViewName("pages/user");
+        mv.setViewName("pages/user/list");
         return mv;
     }
 }
