@@ -52,7 +52,7 @@
            AND BOARD_NO = #{boardNo}
          ORDER BY CREATE_DATE DESC
     </select>
-
+    
     <!--게시글 수정-->
     <update id="updateBoard" parameterType="BoardVo">
         /* 게시글 수정 */
