@@ -6,15 +6,25 @@
     <!--게시글 목록 조회-->
     <select id="selectBoards" resultType="BoardVo">
         /* 게시글 목록 조회 */
-        SELECT BOARD_NO AS boardNo
-             , TITLE AS title
-             , CONTENT AS content
-             , WRITER AS writer
-             , CREATE_DATE AS createDate
-             , UPDATE_DATE AS updateDate
-          FROM BOARD
-         WHERE USE_YN = 'Y'
-         ORDER BY CREATE_DATE DESC
+        SELECT ROWNUM AS no
+	         , T1.boardNo
+	         , T1.title
+	         , T1.content
+	         , T1.writer
+	         , T1.createDate
+	         , T1.updateDate
+	      FROM
+              (SELECT BOARD_NO AS boardNo
+                    , TITLE AS title
+                    , CONTENT AS content
+                    , WRITER AS writer
+                    , CREATE_DATE AS createDate
+                    , UPDATE_DATE AS updateDate
+                 FROM BOARD
+                WHERE USE_YN = 'Y'
+                ORDER BY CREATE_DATE DESC
+              )T1
+         WHERE 1=1
     </select>
 
     <!--게시글 작성-->

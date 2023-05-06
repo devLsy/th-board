@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+
+    <script layout:fragment="script" th:inline="javascript" type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <form id="frm" th:object="${info}" name="frm" action="" method="get">
+      <main>
+        <div class="container-fluid px-4">
+          <h1>게시글 상세</h1>
+            제목: <input type="text" th:value="${info?.title}"> <br>
+            내용: <textarea th:text="${info?.content}"></textarea>
+            작성자: <textarea th:value="${info?.writer}" readonly></textarea>
+        </div>
+      </main>
+
+      <button type="button" class="btn btn-primary">수정</button>
+
+    </form>
+</div>
+</html>

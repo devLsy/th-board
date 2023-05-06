@@ -1,0 +1,42 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+
+    <script layout:fragment="script" th:inline="javascript" type="text/javascript">
+        $(document).ready(function () {
+
+        });
+    </script>
+
+<!-- Content -->
+<div layout:fragment="content">
+      <main>
+        <div class="container-fluid px-4">
+          <h1>게시글 관리</h1>
+            <table id="" style="border: 1px solid">
+                                    <thead>
+                                        <tr>
+                                            <th>순번</th>
+                                            <th>제목</th>
+                                            <th>내용</th>
+                                            <th>작성자</th>
+                                            <th>등록일</th>
+                                            <th>수정일</th>
+                                        </tr>
+                                    </thead>
+                                    <tbody>
+                                        <tr th:if="${#lists.size(list) >0}" th:each="list : ${list}">
+                                            <td th:text="${list.no}"></td>
+                                            <td><a th:href="@{/detail(boardNo=${list.boardNo})}" th:text="${list.title}"></a></td>
+                                            <td th:text="${list.content}"></td>
+                                            <td th:text="${list.writer}"></td>
+                                            <td th:text="${list.createDate}"></td>
+                                            <td th:text="${list.updateDate}"></td>
+                                        </tr>
+                                    </tbody>
+                                </table>
+        </div>
+      </main>
+</div>
+</html>
