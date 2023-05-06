@@ -34,12 +34,30 @@
              , ORG_FILE_NAME AS orgFileName
              , FILE_PATH AS filePath
              , FILE_SIZE AS fileSize
+             , DEL_YN AS delYn
              , CREATE_DATE AS createDate
              , UPDATE_DATE AS updateDate
           FROM FILE_INFO
          WHERE 1=1
            AND FILE_NO = #{fileNo}
-           AND BOARD_NO =#{boardNo}
+<!--           AND BOARD_NO = #{boardNo}-->
+         ORDER BY CREATE_DATE DESC
+    </select>
+
+    <!--파일 목록 조회-->
+    <select id="selectFileList" parameterType="map" resultType="FileVo">
+        /* 파일 목록 조회 */
+        SELECT FILE_NO AS fileNo
+             , BOARD_NO AS boardNo
+             , ORG_FILE_NAME AS orgFileName
+             , FILE_PATH AS filePath
+             , FILE_SIZE AS fileSize
+             , DEL_YN AS delYn
+             , CREATE_DATE AS createDate
+             , UPDATE_DATE AS updateDate
+          FROM FILE_INFO
+         WHERE 1=1
+           AND BOARD_NO = #{boardNo}
          ORDER BY CREATE_DATE DESC
     </select>
 
@@ -52,7 +70,7 @@
              , FILE_SIZE = #{fileSize}
              , UPDATE_DATE = SYSDATE
          WHERE FILE_NO = #{fileNo}
-           AND BOARD_NO =#{boardNo}
+           AND BOARD_NO = #{boardNo}
     </update>
 
     <!--파일 삭제-->
@@ -62,7 +80,7 @@
            SET DEL_YN = 'Y'
              , UPDATE_DATE = SYSDATE
          WHERE FILE_NO = #{fileNo}
-           AND BOARD_NO =#{boardNo}
+           AND BOARD_NO = #{boardNo}
     </update>
 
 </mapper>

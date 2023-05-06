@@ -2,20 +2,30 @@ package study.example.thboard.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.codehaus.groovy.tools.shell.IO;
 import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
+import org.springframework.web.util.UriUtils;
 import study.example.thboard.service.BoardService;
 import study.example.thboard.service.FileService;
 import study.example.thboard.service.UserService;
 import study.example.thboard.vo.BoardVo;
+import study.example.thboard.vo.FileVo;
 import study.example.thboard.vo.UserVo;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
+import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -67,7 +77,6 @@ public class MainController {
                       HttpServletRequest request) {
 
         try {
-            //TODO 게시글 작성 후 생성된 시퀀스값을 파일 저장 시 param값으로 던져야 함
             boardService.regBoard(boardVo);
             //파일 저장
             for (MultipartFile file : files) {
@@ -130,5 +139,37 @@ public class MainController {
         return "redirect:/";
     }
 
+    //파일 이미지 출력
+//    @GetMapping("images/{fileNo}")
+    @ResponseBody
+    public Resource downloadImage(@PathVariable("fileNo") int fileNo, Model model) throws IOException {
+        FileVo fileInfo = null;
+        try {
+            fileInfo = fileService.getFileDetail(fileNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String filePath = fileInfo.getFilePath();
+        return new UrlResource("file: " + filePath);
+    }
+
+    //파일 다운로드
+//    @GetMapping("/download/{fileNo}")
+    public ResponseEntity<Resource> downloadFile(@PathVariable int fileNo) throws IOException{
+        FileVo fileInfo = null;
+        try {
+            fileInfo = fileService.getFileDetail(fileNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        UrlResource resource = new UrlResource("file: " + fileInfo.getFilePath());
+
+        String encodeFileName = UriUtils.encode(fileInfo.getOrgFileName(), StandardCharsets.UTF_8);
+
+        //파일 다운로드 대화상자 표시
+        String contentDisposition = "attachment; filename=\"" + encodeFileName + "\"";
+
+        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(resource);
+    }
 
 }

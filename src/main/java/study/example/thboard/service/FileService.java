@@ -11,6 +11,7 @@ import study.example.thboard.vo.FileVo;
 
 import java.io.File;
 import java.io.IOException;
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -30,7 +31,8 @@ public class FileService {
      * @param boardNo
      * @return
      */
-    public void saveFile(MultipartFile files, int boardNo) throws IOException{
+    @Transactional
+    public void saveFile(MultipartFile files, int boardNo) throws IOException, Exception{
         //원본 파일 이름
         String orgFileName = files.getOriginalFilename();
         //파일 uuid
@@ -43,12 +45,31 @@ public class FileService {
         String path = filePath + saveFileName;
         //파일 저장
         files.transferTo(new File(path));
-
+        //파일정보 DB 저장
         FileVo fileVo = new FileVo();
         fileVo.setOrgFileName(orgFileName);
         fileVo.setFileSize((int) files.getSize());
         fileVo.setBoardNo(boardNo);
-        fileVo.setFilePath(filePath);
+        fileVo.setFilePath(path);
         fileMapper.insertFile(fileVo);
     }
+
+    /**
+     * 파일 정보 상세
+     * @param fileNo
+     * @return
+     */
+    public FileVo getFileDetail(int fileNo) throws Exception{
+        return fileMapper.selectFileDetail(fileNo);
+    }
+
+    /**
+     * 파일 목록 조회
+     * @param boardNo
+     * @return
+     */
+    public List<FileVo> getFileList(int boardNo) throws Exception{
+        return fileMapper.selectFileList(boardNo);
+    }
+
 }
