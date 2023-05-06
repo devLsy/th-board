@@ -68,11 +68,11 @@ public class MainController {
 
         try {
             //TODO 게시글 작성 후 생성된 시퀀스값을 파일 저장 시 param값으로 던져야 함
-            int boardNo = boardService.regBoard(boardVo);
+            boardService.regBoard(boardVo);
             //파일 저장
             for (MultipartFile file : files) {
                 if (!file.isEmpty()) {
-                    fileService.saveFile(file, boardNo);
+                    fileService.saveFile(file, boardVo.getBoardNo());
                 }
             }
         } catch (IOException ie) {

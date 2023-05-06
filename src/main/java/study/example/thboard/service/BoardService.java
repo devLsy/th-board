@@ -26,15 +26,14 @@ public class BoardService {
     public List<BoardVo> getBoards(BoardVo boardVo) throws Exception{
         return boardMapper.selectBoards(boardVo);
     }
-    
+
     /**
      * 게시글 등록
      * @param boardVo
      * @throws Exception
-     * @return
      */
-    public int regBoard(BoardVo boardVo) throws Exception{
-        return boardMapper.insertBoard(boardVo);
+    public void regBoard(BoardVo boardVo) throws Exception{
+        boardMapper.insertBoard(boardVo);
     }
 
     /**

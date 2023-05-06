@@ -47,6 +47,9 @@
 
     <!--게시글 작성-->
     <insert id="insertBoard" parameterType="BoardVo">
+        <selectKey keyProperty="boardNo" resultType="int" order="BEFORE">
+            SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
         /* 게시글 작성 */
         INSERT INTO BOARD
             (
@@ -58,15 +61,12 @@
             )
         VALUES
             (
-                BOARD_NO_SEQ.NEXTVAL
+                #{boardNo}
               , #{title}
               , #{content}
               , #{writer}
               , SYSDATE
             )
-            <selectKey keyProperty="boardNo" resultType="int" order="AFTER">
-                SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
-            </selectKey>
     </insert>
 
     <!--게시글 상세-->
