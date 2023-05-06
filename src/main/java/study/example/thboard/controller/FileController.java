@@ -58,16 +58,16 @@ public class FileController {
     public Resource downloadImage(@PathVariable int fileNo, Model model) throws Exception{
         FileVo fileDetail = fileService.getFileDetail(fileNo);
         //아래에서 에러 발생(path....)
-        return new UrlResource("file: " + fileDetail.getFilePath());
+        return new UrlResource("file:" + fileDetail.getFilePath());
     }
-
+    
     //파일 다운로드
     @GetMapping("/download/{fileNo}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int fileNo) throws Exception {
 
         FileVo fileInfo = fileService.getFileDetail(fileNo);
 
-        UrlResource resource = new UrlResource("file: " + fileInfo.getFilePath());
+        UrlResource resource = new UrlResource("file:" + fileInfo.getFilePath());
 
         String encodeFileName = UriUtils.encode(fileInfo.getOrgFileName(), StandardCharsets.UTF_8);
 
