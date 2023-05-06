@@ -48,9 +48,9 @@ class BoardServiceTest {
 //    public void 수정() throws Exception {
 //        //givin
 //        BoardVo boardVo = new BoardVo();
-//        boardVo.setBoardNo(1);
-//        boardVo.setTitle("수정 제목");
-//        boardVo.setContent("수정 내용");
+//        boardVo.setBoardNo(3);
+//        boardVo.setTitle("진풍백");
+//        boardVo.setContent("천마군황보!!!");
 //        boardMapper.updateBoard(boardVo);
 //        //when
 //

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+      layout:decorate="~{layouts/default_layout}">
+
+    <script layout:fragment="script" th:inline="javascript" type="text/javascript">
+        $(document).ready(function () {
+            $("#btnSave").on("click", function () {
+                $("#frm").attr("action", "reg").attr("method", "post").submit();
+            });
+        });
+    </script>
+
+<!-- Content -->
+<div layout:fragment="content">
+    <form id="frm" name="frm" action="" method="get">
+      <main>
+        <div class="container-fluid px-4">
+          <h1>게시글 쓰기</h1>
+            제목: <input type="text" name="title"> <br>
+            내용: <textarea id="content" name="content"></textarea>
+            작성자: <input type="text" name="writer"> <br>
+        </div>
+      </main>
+
+      <button type="button" id="btnSave" class="btn btn-success">등록</button>
+        <a th:href="@{/}" class="link-info link-offset-2">목록</a>
+
+    </form>
+</div>
+</html>

@@ -44,7 +44,7 @@ public class MainController {
      */
     @GetMapping("regForm")
     public ModelAndView regForm() {
-        ModelAndView mv = new ModelAndView("pages/reg");
+        ModelAndView mv = new ModelAndView("pages/regForm");
         mv.addObject("board", new BoardVo());
         return mv;
     }
@@ -61,7 +61,7 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/board";
+        return "redirect:/";
     }
 
     /**
@@ -93,7 +93,7 @@ public class MainController {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return "redirect:/board";
+        return "redirect:/";
     }
 
 

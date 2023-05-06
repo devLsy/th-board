@@ -3,6 +3,13 @@
 
 <mapper namespace="study.example.thboard.mapper.BoardMapper">
 
+<!-- 검색 parameter값 -->
+<sql id="searchParam">
+    <if test="empNm != null and empNm !=''">
+            AND B.EMP_NM LIKE '%' || #{empNm} || '%'
+    </if>
+</sql>
+
     <!--게시글 목록 조회-->
     <select id="selectBoards" resultType="BoardVo">
         /* 게시글 목록 조회 */
