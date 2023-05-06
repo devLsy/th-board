@@ -25,12 +25,12 @@ public class MainController {
      * @return
      */
     @GetMapping(value = "")
-    public ModelAndView main() {
+    public ModelAndView main(@ModelAttribute BoardVo boardVo) {
         ModelAndView mv = new ModelAndView("pages/index");
         List<BoardVo> boardList = null;
 
         try {
-            boardList = boardService.getBoards();
+            boardList = boardService.getBoards(boardVo);
             mv.addObject("list", boardList);
         } catch (Exception e) {
             e.printStackTrace();

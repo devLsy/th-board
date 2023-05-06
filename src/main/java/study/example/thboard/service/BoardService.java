@@ -19,11 +19,12 @@ public class BoardService {
 
     /**
      * 게시글 목록 조회
+     * @param boardVo
      * @throws Exception
      * @return
      */
-    public List<BoardVo> getBoards() throws Exception{
-        return boardMapper.selectBoards();
+    public List<BoardVo> getBoards(BoardVo boardVo) throws Exception{
+        return boardMapper.selectBoards(boardVo);
     }
 
     /**

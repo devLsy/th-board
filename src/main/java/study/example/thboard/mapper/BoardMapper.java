@@ -10,7 +10,7 @@ import java.util.List;
 @Repository @Mapper
 public interface BoardMapper {
     /* 게시글 목록 조회 */
-    List<BoardVo> selectBoards();
+    List<BoardVo> selectBoards(BoardVo boardVo);
 
     /* 게시글 등록 */
     void insertBoard(BoardVo boardVo);

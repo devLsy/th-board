@@ -5,13 +5,22 @@
 
 <!-- 검색 parameter값 -->
 <sql id="searchParam">
-    <if test="empNm != null and empNm !=''">
-            AND B.EMP_NM LIKE '%' || #{empNm} || '%'
+    <!-- 제목 -->
+    <if test="type == 'T'.toString()">
+        AND TITLE LIKE '%' || #{keyword} || '%'
+    </if>
+    <!-- 내용 -->
+    <if test="type == 'C'.toString()">
+        AND CONTENT LIKE '%' || #{keyword} || '%'
+    </if>
+    <!-- 작성자 -->
+    <if test="type == 'W'.toString()">
+        AND WRITER LIKE '%' || #{keyword} || '%'
     </if>
 </sql>
 
     <!--게시글 목록 조회-->
-    <select id="selectBoards" resultType="BoardVo">
+    <select id="selectBoards" parameterType="BoardVo" resultType="BoardVo">
         /* 게시글 목록 조회 */
         SELECT ROWNUM AS no
 	         , T1.boardNo
@@ -25,10 +34,12 @@
                     , TITLE AS title
                     , CONTENT AS content
                     , WRITER AS writer
-                    , CREATE_DATE AS createDate
-                    , UPDATE_DATE AS updateDate
+                    , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS createDate
+                    , TO_CHAR(UPDATE_DATE, 'YYYY-MM-DD') AS updateDate
                  FROM BOARD
-                WHERE USE_YN = 'Y'
+                WHERE 1=1
+                  AND USE_YN = 'Y'
+                  <include refid="searchParam"/>
                 ORDER BY CREATE_DATE DESC
               )T1
          WHERE 1=1
