@@ -64,6 +64,9 @@
               , #{writer}
               , SYSDATE
             )
+            <selectKey keyProperty="boardNo" resultType="int" order="AFTER">
+                SELECT BOARD_NO_SEQ.NEXTVAL FROM DUAL
+            </selectKey>
     </insert>
 
     <!--게시글 상세-->

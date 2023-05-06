@@ -1,6 +1,8 @@
 server:
   port: 8080
 
+file.path: D:\upload\
+
 mybatis:
   mapper-locations: mapper/**/*.xml
   type-aliases-package: study.example.thboard.vo
@@ -8,6 +10,12 @@ mybatis:
     jdbc-type-for-null: null
 
 spring:
+  servlet:
+    multipart:
+      max-file-size: 128MB
+      max-request-size: 128MB
+      enabled: true
+
   datasource:
     driver-class-name: net.sf.log4jdbc.sql.jdbcapi.DriverSpy
     url: jdbc:log4jdbc:oracle:thin:@(DESCRIPTION=(ADDRESS=(PROTOCOL=TCP)(HOST=localhost)(PORT=1521))(LOAD_BALANCE=ON)(CONNECT_DATA=(SERVER=DEDICATED)(SERVICE_NAME=ORCL)))
@@ -18,3 +26,5 @@ spring:
       auto-commit: false
   thymeleaf:
     cache: false
+
+

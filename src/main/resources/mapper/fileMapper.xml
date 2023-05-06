@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.example.thboard.mapper.FileMapper">
+
+    <!--파일정보 저장-->
+    <insert id="insertFile" parameterType="FileVo">
+        /* 파일정보 저장 */
+        INSERT INTO FILE_INFO
+            (
+                FILE_NO
+              , BOARD_NO
+              , ORG_FILE_NAME
+              , FILE_PATH
+              , FILE_SIZE
+              , CREATE_DATE
+            )
+        VALUES
+            (
+                FILE_NO_SEQ.NEXTVAL
+              , #{boardNo}
+              , #{orgFileName}
+              , #{filePath}
+              , #{fileSize}
+              , SYSDATE
+            )
+    </insert>
+
+    <!--파일 상세-->
+    <select id="selectFileDetail" parameterType="map" resultType="FileVo">
+        /* 파일정보 상세 조회 */
+        SELECT FILE_NO AS fileNo
+             , BOARD_NO AS boardNo
+             , ORG_FILE_NAME AS orgFileName
+             , FILE_PATH AS filePath
+             , FILE_SIZE AS fileSize
+             , CREATE_DATE AS createDate
+             , UPDATE_DATE AS updateDate
+          FROM FILE_INFO
+         WHERE 1=1
+           AND FILE_NO = #{fileNo}
+           AND BOARD_NO =#{boardNo}
+         ORDER BY CREATE_DATE DESC
+    </select>
+
+    <!--파일정보 수정-->
+    <update id="updateFile" parameterType="FileVo">
+        /* 게시글 수정 */
+        UPDATE FILE_INFO
+           SET ORG_FILE_NAME = #{orgFileName}
+             , FILE_PATH = #{filePath}
+             , FILE_SIZE = #{fileSize}
+             , UPDATE_DATE = SYSDATE
+         WHERE FILE_NO = #{fileNo}
+           AND BOARD_NO =#{boardNo}
+    </update>
+
+    <!--파일 삭제-->
+    <update id="deleteFile" parameterType="map">
+        /* 파일 삭제 */
+        UPDATE FILE_INFO
+           SET DEL_YN = 'Y'
+             , UPDATE_DATE = SYSDATE
+         WHERE FILE_NO = #{fileNo}
+           AND BOARD_NO =#{boardNo}
+    </update>
+
+</mapper>

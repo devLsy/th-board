@@ -13,7 +13,7 @@ public interface BoardMapper {
     List<BoardVo> selectBoards(BoardVo boardVo);
 
     /* 게시글 등록 */
-    void insertBoard(BoardVo boardVo);
+    int insertBoard(BoardVo boardVo);
 
     /* 게시글 상세 */
     BoardVo selectBoardDetail(@Param("boardNo") int boardNo);
