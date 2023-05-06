@@ -96,5 +96,20 @@ public class MainController {
         return "redirect:/";
     }
 
+    /**
+     * 게시글 삭제
+     * @param boardNo
+     * @return
+     */
+    @PostMapping("del")
+    public String del(@RequestParam int boardNo) {
+        try {
+            boardService.deleteBoard(boardNo);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return "redirect:/";
+    }
+
 
 }

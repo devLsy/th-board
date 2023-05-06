@@ -19,7 +19,7 @@
           <h1>게시글 상세</h1>
             <input type="hidden" name="boardNo" th:value="${info?.boardNo}">
             제목: <input type="text" name="title" th:value="${info?.title}"> <br>
-            내용: <textarea name="content" th:text="${info?.content}"></textarea>
+            내용: <textarea name="content" th:text="${info?.content}" class="form-control col-sm-5"></textarea>
             작성자: <input type="text" name="writer" th:value="${info?.writer}" readonly> <br>
         </div>
       </main>

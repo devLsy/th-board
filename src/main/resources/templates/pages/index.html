@@ -15,6 +15,15 @@
                 $("#frm").submit();
             });
         });
+
+        //삭제
+        function del(no) {
+            let boardNo = $("<input>").attr("type", "hidden").attr("name", "boardNo").val(no);
+            $("#frm").attr("method", "post")
+                     .attr("action", "del")
+                     .append(boardNo)
+                     .submit();
+        }
     </script>
 
 <!-- Content -->
@@ -35,7 +44,7 @@
                 <button type="button" id="btnSearch" class="btn btn-secondary">검색</button>
             </div>
 
-            <table id="" style="border: 1px solid">
+            <table class="table table-striped">
                                     <thead>
                                         <tr>
                                             <th>순번</th>
@@ -44,6 +53,7 @@
                                             <th>작성자</th>
                                             <th>등록일</th>
                                             <th>수정일</th>
+                                            <th></th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -54,6 +64,7 @@
                                             <td th:text="${list.writer}"></td>
                                             <td th:text="${list.createDate}"></td>
                                             <td th:text="${list.updateDate}"></td>
+                                            <td><a href="#" th:href="'javascript:del('+${list.boardNo}+')'" class="btn btn-danger">삭제</a></td>
                                         </tr>
                                     </tbody>
                                 </table>
