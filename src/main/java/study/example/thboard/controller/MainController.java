@@ -102,7 +102,9 @@ public class MainController {
         ModelAndView mv = new ModelAndView("pages/detail");
         try {
             BoardVo info = boardService.getBoard(boardNo);
+            List<FileVo> fileList = fileService.getFileList(boardNo);
             mv.addObject("info", info);
+            mv.addObject("files", fileList);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -139,37 +141,8 @@ public class MainController {
         return "redirect:/";
     }
 
-    //파일 이미지 출력
-//    @GetMapping("images/{fileNo}")
-    @ResponseBody
-    public Resource downloadImage(@PathVariable("fileNo") int fileNo, Model model) throws IOException {
-        FileVo fileInfo = null;
-        try {
-            fileInfo = fileService.getFileDetail(fileNo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String filePath = fileInfo.getFilePath();
-        return new UrlResource("file: " + filePath);
-    }
 
-    //파일 다운로드
-//    @GetMapping("/download/{fileNo}")
-    public ResponseEntity<Resource> downloadFile(@PathVariable int fileNo) throws IOException{
-        FileVo fileInfo = null;
-        try {
-            fileInfo = fileService.getFileDetail(fileNo);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        UrlResource resource = new UrlResource("file: " + fileInfo.getFilePath());
 
-        String encodeFileName = UriUtils.encode(fileInfo.getOrgFileName(), StandardCharsets.UTF_8);
 
-        //파일 다운로드 대화상자 표시
-        String contentDisposition = "attachment; filename=\"" + encodeFileName + "\"";
-
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(resource);
-    }
 
 }

@@ -18,14 +18,19 @@
         <div class="container-fluid px-4">
           <h1>게시글 상세</h1>
             <input type="hidden" name="boardNo" th:value="${info?.boardNo}">
-            제목: <input type="text" name="title" th:value="${info?.title}"> <br>
+            제목: <input type="text" name="title" th:value="${info?.title}" class="form-control"> <br>
             내용: <textarea name="content" th:text="${info?.content}" class="form-control col-sm-5"></textarea>
-            작성자: <input type="text" name="writer" th:value="${info?.writer}" readonly> <br>
 
-            <div th:each="imageFile : ${}">
+            <!-- 이미지 미리보기 -->
+            <div th:each="file : ${files} ">
+                <a th:href="|/download/${file.fileNo}|" th:title="${file.orgFileName}">
+                    <img th:src="|/images/${file.fileNo}|" width="150" height="150">
+                    <p th:text="${file.orgFileName}"></p>
+                </a>
+		    </div>
+        
+            작성자: <input type="text" name="writer" th:value="${info?.writer}" class="form-control" aria-label="readonly input example" readonly> <br>
 
-
-            </div>
 
         </div>
       </main>

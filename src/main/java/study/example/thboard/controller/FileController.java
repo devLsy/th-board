@@ -14,9 +14,7 @@ import org.springframework.web.util.UriUtils;
 import study.example.thboard.service.FileService;
 import study.example.thboard.vo.FileVo;
 
-import java.io.IOException;
 import java.nio.charset.StandardCharsets;
-import java.nio.file.Paths;
 import java.util.List;
 
 @Controller
@@ -60,7 +58,7 @@ public class FileController {
         //아래에서 에러 발생(path....)
         return new UrlResource("file:" + fileDetail.getFilePath());
     }
-    
+
     //파일 다운로드
     @GetMapping("/download/{fileNo}")
     public ResponseEntity<Resource> downloadFile(@PathVariable int fileNo) throws Exception {
@@ -69,11 +67,14 @@ public class FileController {
 
         UrlResource resource = new UrlResource("file:" + fileInfo.getFilePath());
 
-        String encodeFileName = UriUtils.encode(fileInfo.getOrgFileName(), StandardCharsets.UTF_8);
+        String encodedFileName = UriUtils.encode(fileInfo.getOrgFileName(), StandardCharsets.UTF_8);
 
         //파일 다운로드 대화상자 표시
-        String contentDisposition = "attachment; filename=\"" + encodeFileName + "\"";
+         String contentDisposition = "attachment; filename=\"" + encodedFileName + "\"";
 
-        return ResponseEntity.ok().header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition).body(resource);
+        return ResponseEntity
+                .ok()
+                .header(HttpHeaders.CONTENT_DISPOSITION, contentDisposition)
+                .body(resource);
     }
 }
