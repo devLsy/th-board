@@ -28,7 +28,7 @@ public class ReplyController {
      */
     @GetMapping(value = "/replys/{boardNo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Reply>> list(@PathVariable("boardNo") int boardNo) {
-    
+
         List<Reply> replyList = null;
         try {
             replyList = replyService.getReplys(boardNo);

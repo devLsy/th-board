@@ -27,7 +27,7 @@
                     console.log(result);
                     // 1. 조회된 데이터가 없는 경우
                     if ( !result.length ) {
-                        document.querySelector('.cm_list').innerHTML = '<div class="cm_none"><p>등록된 댓글이 없습니다.</p></div>';
+                        $(".reply_list").html("등록된 댓글이 없다.");
                         return false;
                     }
                     // 2. 렌더링 할 HTML 저장 변수
@@ -35,10 +35,7 @@
                      result.forEach(row => {
                         replyHtml += `
                             <div>
-                                <span class="writer_img"><img src="/images/default_profile.png" width="30" height="30" alt="기본 프로필 이미지"/></span>
-                                <p class="writer">
-                                    <em>${row.replyNo}</em>
-                                </p>
+                                <div class="cont"><div class="txt_con">${row.writer}</div></div>
                                 <div class="cont"><div class="txt_con">${row.content}</div></div>
                                 <p class="func_btns">
                                     <button type="button" onclick="" class="btns"><span class="icons icon_modify">수정</span></button>
@@ -47,7 +44,7 @@
                             </div>
                         `;
                     })
-                    $(".cm_list").append(replyHtml);
+                    $(".reply_list").append(replyHtml);
                 },
                 error: function (request, status, error) {
                     console.log(error);
