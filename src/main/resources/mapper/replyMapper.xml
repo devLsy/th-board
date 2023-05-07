@@ -25,7 +25,7 @@
                      , UPDATE_DATE AS updateDate
                   FROM REPLY
                  WHERE 1=1
-                   AND DEL_YN = 'Y'
+                   AND DEL_YN = 'N'
                    AND BOARD_NO = #{boardNo}
               )T1
           WHERE 1=1
@@ -43,7 +43,7 @@
              , UPDATE_DATE AS updateDate
           FROM REPLY
          WHERE 1=1
-           AND DEL_YN = 'Y'
+           AND DEL_YN = 'N'
            AND BOARD_NO = #{boardNo}
            AND REPLY_NO = #{replyNo}
     </select>
@@ -72,7 +72,7 @@
          WHERE BOARD_NO = #{boardNo}
            AND REPLY_NO = #{replyNo}
     </update>
-        
+
     <!--댓글 저장-->
     <insert id="insertReply" parameterType="Reply">
         <selectKey keyProperty="replyNo" resultType="int" order="BEFORE">

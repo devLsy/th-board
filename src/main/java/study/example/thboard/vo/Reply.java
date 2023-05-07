@@ -4,7 +4,7 @@ import lombok.Data;
 
 @Data
 //댓글 vo
-public class Reply {
+public class Reply extends CommonVo{
 
     private int replyNo;
     private int boardNo;

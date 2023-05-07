@@ -31,6 +31,24 @@
 
             작성자: <input type="text" name="writer" th:value="${info?.writer}" class="form-control" aria-label="readonly input example" readonly> <br>
 
+            <table class="table table-striped table-sm">
+                <thead>
+                    <tr>
+                        <th>댓글내용</th>
+                        <th>작성자</th>
+                        <th>등록일</th>
+                        <th>수정일</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr th:if="${#lists.size(replyList) >0}" th:each="list : ${replyList}">
+                        <td th:text="${list.content}"></td>
+                        <td th:text="${list.writer}"></td>
+                        <td th:text="${list.createDate}"></td>
+                        <td th:text="${list.updateDate}"></td>
+                    </tr>
+                </tbody>
+            </table>
 
         </div>
       </main>

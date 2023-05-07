@@ -8,10 +8,8 @@ import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 import study.example.thboard.service.BoardService;
 import study.example.thboard.service.FileService;
-import study.example.thboard.vo.BoardVo;
-import study.example.thboard.vo.Criteria;
-import study.example.thboard.vo.PageMaker;
-import study.example.thboard.vo.FileVo;
+import study.example.thboard.service.ReplyService;
+import study.example.thboard.vo.*;
 
 import javax.servlet.http.HttpServletRequest;
 import java.io.IOException;
@@ -25,6 +23,7 @@ public class MainController {
 
     private final BoardService boardService;
     private final FileService fileService;
+    private final ReplyService replyService;
 
     /**
      * 게시글 목록 조회
@@ -99,8 +98,10 @@ public class MainController {
         ModelAndView mv = new ModelAndView("pages/detail");
         try {
             BoardVo info = boardService.getBoard(boardNo);
+            List<Reply> replyList = replyService.getReplys(boardNo);
             List<FileVo> fileList = fileService.getFileList(boardNo);
             mv.addObject("info", info);
+            mv.addObject("replyList", replyList);
             mv.addObject("files", fileList);
         } catch (Exception e) {
             e.printStackTrace();
