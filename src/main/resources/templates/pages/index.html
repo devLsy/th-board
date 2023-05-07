@@ -13,6 +13,7 @@
             //검색
             $("#btnSearch").on("click", function (e) {
                 e.preventDefault();
+                $("#pageNum").val(1);
                 $("#frm").submit();
             });
         });
@@ -42,6 +43,8 @@
                     <option value="C">내용</option>
                 </select>
                 <input type="text" name="keyword" th:field="${cri.keyword}">
+                <input type="hidden" id="pageNum" name="pageNum" th:value="${cri.pageNum}">
+                <input type="hidden" id="amount" name="amount" th:value="${cri.amount}">
                 <button type="button" id="btnSearch" class="btn btn-secondary">검색</button>
             </div>
 
@@ -76,15 +79,15 @@
             <ul class="pagination justify-content-center">
                 <!-- prev -->
                 <li class="page-item" th:if="${pageMaker.prev} == true">
-                    <a class="page-link" th:href="@{/(pageNum=${pageMaker.startPage}-1)}">Prev</a>
+                    <a class="page-link" th:href="@{/(pageNum=${pageMaker.startPage}-1, type=${pageMaker.cri.type}, keyword=${pageMaker.cri.keyword})}">Prev</a>
                 </li>
                 <!-- pageMaker의 startPage부터 endPage까지 루프, a태그의 href에 idx를 링크(get방식으로 pageNum을 붙여서) -->
                 <li class="page-item" id="paginate_btn" th:each="idx: ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}" th:classappend="${pageMaker.cri.pageNum} == ${idx} ? active : null">
-                    <a class="page-link" th:href="@{/(pageNum=${idx})}" th:text="${idx}"></a>
+                    <a class="page-link" th:href="@{/(pageNum=${idx}, type=${pageMaker.cri.type}, keyword=${pageMaker.cri.keyword})}" th:text="${idx}"></a>
                 </li>
                 <!-- next -->
                 <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
-                    <a class="page-link" th:href="@{/(pageNum=${pageMaker.endPage}+1)}">Next</a>
+                    <a class="page-link" th:href="@{/(pageNum=${pageMaker.endPage}+1, type=${pageMaker.cri.type}, keyword=${pageMaker.cri.keyword})}">Next</a>
                 </li>
             </ul>
         </nav>
