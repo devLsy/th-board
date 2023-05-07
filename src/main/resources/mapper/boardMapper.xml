@@ -4,25 +4,24 @@
 <mapper namespace="study.example.thboard.mapper.BoardMapper">
 
 <!-- 검색 parameter값 -->
-<!--<sql id="searchParam">-->
-<!--    &lt;!&ndash; 제목 &ndash;&gt;-->
-<!--    <if test="type == 'T'.toString()">-->
-<!--        AND TITLE LIKE '%' || #{keyword} || '%'-->
-<!--    </if>-->
-<!--    &lt;!&ndash; 내용 &ndash;&gt;-->
-<!--    <if test="type == 'C'.toString()">-->
-<!--        AND CONTENT LIKE '%' || #{keyword} || '%'-->
-<!--    </if>-->
-<!--    &lt;!&ndash; 작성자 &ndash;&gt;-->
-<!--    <if test="type == 'W'.toString()">-->
-<!--        AND WRITER LIKE '%' || #{keyword} || '%'-->
-<!--    </if>-->
-<!--</sql>-->
+<sql id="searchParam">
+    <!-- 제목 -->
+    <if test="type == 'T'.toString()">
+        AND TITLE LIKE '%' || #{keyword} || '%'
+    </if>
+    <!-- 내용 -->
+    <if test="type == 'C'.toString()">
+        AND CONTENT LIKE '%' || #{keyword} || '%'
+    </if>
+    <!-- 작성자 -->
+    <if test="type == 'W'.toString()">
+        AND WRITER LIKE '%' || #{keyword} || '%'
+    </if>
+</sql>
 
     <!--게시글 목록 조회-->
     <select id="selectBoards" parameterType="Criteria" resultType="BoardVo">
         /* 게시글 목록 조회 */
-        <![CDATA[
         SELECT T1.no
 	         , T1.boardNo
 	         , T1.title
@@ -43,11 +42,10 @@
                   FROM BOARD
                  WHERE 1=1
                    AND USE_YN = 'Y'
-
-                   AND rownum <= #{pageNum} * #{amount}
+                   <include refid="searchParam"/>
+                   AND rownum <![CDATA[<=]]> #{pageNum} * #{amount}
               )T1
-         WHERE no > (#{pageNum} -1) * #{amount}
-         ]]>
+         WHERE no <![CDATA[>]]> (#{pageNum} -1) * #{amount}
     </select>
 
     <!--게시글 전체 카운트-->

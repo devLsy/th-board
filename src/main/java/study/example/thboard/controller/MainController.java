@@ -43,6 +43,7 @@ public class MainController {
             boardList = boardService.getBoards(cri);
             PageMaker pageMaker = new PageMaker(totBoardCnt, cri);
             mv.addObject("list", boardList);
+            mv.addObject("cri", cri);
             mv.addObject("pageMaker", pageMaker);
 
         } catch (Exception e) {

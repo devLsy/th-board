@@ -28,20 +28,20 @@
 
 <!-- Content -->
 <div layout:fragment="content">
-      <form id="frm" th:object="${boardVo}" action="" method="get">
+      <form id="frm" th:object="${cri}" action="" method="get">
       <main>
         <div class="container-fluid px-4">
           <h1>게시글 관리</h1>
 
             <div class="input-group mb3">
-<!--                <select name="type" th:field="*{type}">-->
-<!--                    <option value="">&#45;&#45;</option>-->
-<!--                    <option value="W">작성자</option>-->
-<!--                    <option value="T">제목</option>-->
-<!--                    <option value="C">내용</option>-->
-<!--                </select>-->
-<!--                <input type="text" name="keyword" th:field="*{keyword}">-->
-<!--                <button type="button" id="btnSearch" class="btn btn-secondary">검색</button>-->
+                <select name="type" th:field="*{type}">
+                    <option value="">--</option>
+                    <option value="W">작성자</option>
+                    <option value="T">제목</option>
+                    <option value="C">내용</option>
+                </select>
+                <input type="text" name="keyword" th:field="*{keyword}">
+                <button type="button" id="btnSearch" class="btn btn-secondary">검색</button>
             </div>
 
             <table class="table table-striped table-sm">
