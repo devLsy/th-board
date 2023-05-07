@@ -1,0 +1,14 @@
+package study.example.thboard.vo;
+
+import lombok.Data;
+
+@Data
+//댓글 vo
+public class Reply {
+
+    private int replyNo;
+    private int boardNo;
+    private String content;
+    private String writer;
+    private String delYn;
+}

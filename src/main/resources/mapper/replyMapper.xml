@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://www.mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="study.example.thboard.mapper.ReplyMapper">
+
+    <!--댓글 목록 조회-->
+    <select id="selectReplys" parameterType="map" resultType="Reply">
+        /* 댓글 목록 조회 */
+        SELECT
+	           T1.replyNo
+	         , T1.boardNo
+	         , T1.content
+	         , T1.writer
+             , T1.delYn
+	         , T1.createDate
+	         , T1.updateDate
+	      FROM
+              (SELECT
+                       REPLY_NO AS replyNo
+                     , BOARD_NO AS boardNo
+                     , CONTENT AS content
+                     , WRITER AS writer
+                     , DEL_YN AS delYn
+                     , CREATE_DATE AS createDate
+                     , UPDATE_DATE AS updateDate
+                  FROM REPLY
+                 WHERE 1=1
+                   AND DEL_YN = 'Y'
+                   AND BOARD_NO = #{boardNo}
+              )T1
+          WHERE 1=1
+    </select>
+</mapper>
