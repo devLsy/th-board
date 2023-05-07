@@ -28,12 +28,11 @@ public class ReplyService {
 
     /**
      * 댓글 상세 조회
-     * @param boardNo
      * @param replyNo
      * @return
      */
-    public Reply getReply(int boardNo, int replyNo) throws Exception{
-        return replyMapper.selectReplyDetail(boardNo, replyNo);
+    public Reply getReply(int replyNo) throws Exception{
+        return replyMapper.selectReplyDetail(replyNo);
     }
 
     /**
@@ -57,11 +56,11 @@ public class ReplyService {
 
     /**
      * 댓글 삭제 
-     * @param reply
+     * @param replyNo
      */
     @Transactional
-    public void removeReply(Reply reply) throws Exception{
-        replyMapper.delReply(reply);
+    public void removeReply(int replyNo) throws Exception{
+        replyMapper.delReply(replyNo);
     }
 
     /**

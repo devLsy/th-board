@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import study.example.thboard.service.ReplyService;
 import study.example.thboard.vo.Reply;
 
+import javax.print.attribute.standard.Media;
 import java.util.List;
 
 @RestController
@@ -45,4 +46,18 @@ public class ReplyController {
         replyService.saveReply(reply);
         return reply.getReplyNo();
     }
+
+    /**
+     * 댓글 삭제
+     * @param replyNo
+     * @return
+     * @throws Exception
+     */
+    @DeleteMapping(value = "replys/{replyNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> delReply(@PathVariable int replyNo) throws Exception {
+        replyService.removeReply(replyNo);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+
+
  }

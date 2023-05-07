@@ -15,7 +15,6 @@
         //댓글 리스트
         function getReplyList() {
             const boardNo = $("#boardNo").val();
-            // console.log("boardNo : " + boardNo);
             $.ajax({
                 url : '/replys/' + boardNo,
                 type : 'get',
@@ -34,9 +33,10 @@
                             <div>
                                 <div class="cont"><div class="txt_con">${row.writer}</div></div>
                                 <div class="cont"><div class="txt_con">${row.content}</div></div>
+                                <input type="hidden" id="replyNo" name="replyNo" data-no="${row.replyNo}">
                                 <p class="func_btns">
-                                    <button type="button" onclick="" class="btns"><span class="icons icon_modify">수정</span></button>
-                                    <button type="button" class="btn btn-danger"><span class="icons icon_del">삭제</span></button>
+                                    <button type="button" onclick="" class="btn btn-info"><span class="icons icon_modify">수정</span></button>
+                                    <button type="button" onclick="delReply()" class="btn btn-danger"><span class="icons icon_del">삭제</span></button>
                                 </p>
                             </div>
                         `;
@@ -46,7 +46,6 @@
                 error: function (request, status, error) {
                     console.log(error);
                 }
-
             });
         }
 
@@ -57,7 +56,7 @@
             const params = {
                 boardNo : boardNo,
                 content : content,
-                writer : '촌마'
+                writer : '촌마'//로그인 기능 구현 후 수정 예정
             }
 
             $.ajax({
@@ -67,16 +66,37 @@
                 data : params,
                 ansync: false,
                 success: function (result) {
-                    console.log(result);
                     alert(result +  "번 댓글이 저장되었습니다.");
                     $("#content").val('');
-                    getReplyList();
+                    location.reload();
                 },
                 error: function (request, status, error) {
                     console.log(error);
                 }
             });
         }
+
+        //댓글 삭제
+        function delReply() {
+            const replyNo = $("#replyNo").attr("data-no");
+            const params = {replyNo : replyNo}
+
+            $.ajax({
+                url : '/replys/' + replyNo,
+                type : 'delete',
+                dataType : 'json',
+                data : params,
+                ansync: false,
+                success: function (result) {
+                    alert("삭제 되었습니다.");
+                    location.reload();
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+
     </script>
 
 <!-- Content -->

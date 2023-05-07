@@ -44,7 +44,6 @@
           FROM REPLY
          WHERE 1=1
            AND DEL_YN = 'N'
-           AND BOARD_NO = #{boardNo}
            AND REPLY_NO = #{replyNo}
     </select>
 
@@ -57,11 +56,10 @@
     </select>
 
     <!--댓글 삭제-->
-    <update id="delReply" parameterType="Reply">
+    <update id="delReply" parameterType="map">
         UPDATE REPLY
            SET DEL_YN = 'Y'
-         WHERE BOARD_NO = #{boardNo}
-           AND REPLY_NO = #{replyNo}
+         WHERE REPLY_NO = #{replyNo}
     </update>
 
     <!--댓글 수정-->
@@ -69,8 +67,7 @@
         UPDATE REPLY
            SET CONTENT = #{content}
              , UPDATE_DATE = SYSDATE
-         WHERE BOARD_NO = #{boardNo}
-           AND REPLY_NO = #{replyNo}
+         WHERE REPLY_NO = #{replyNo}
     </update>
 
     <!--댓글 저장-->

@@ -14,7 +14,7 @@ public interface ReplyMapper {
     List<Reply> selectReplys(@Param("boardNo") int boardNo);
 
     /* 댓글 상세 조회 */
-    Reply selectReplyDetail(@Param("boardNo") int boardNo, @Param("replyNo") int replyNo);
+    Reply selectReplyDetail(@Param("replyNo") int replyNo);
 
     /* 댓글 저장 */
     void insertReply(Reply reply);
@@ -23,8 +23,8 @@ public interface ReplyMapper {
     void updateReply(Reply reply);
 
     /* 댓글 삭제 */
-    void delReply(Reply reply);
-        
+    void delReply(@Param("replyNo") int replyNo);
+
     /* 댓글 카운트 */
     int selectReplyCnt(@Param("boardNo") int boardNo);
 }
