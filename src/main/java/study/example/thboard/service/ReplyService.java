@@ -32,24 +32,26 @@ public class ReplyService {
      * @param replyNo
      * @return
      */
-    public Reply getReply(int boardNo, int replyNo) {
+    public Reply getReply(int boardNo, int replyNo) throws Exception{
         return replyMapper.selectReplyDetail(boardNo, replyNo);
     }
 
     /**
      * 댓글 등록 
      * @param reply
+     * @return
      */
-    public int saveReply(Reply reply) {
+    @Transactional
+    public void saveReply(Reply reply) throws Exception{
         replyMapper.insertReply(reply);
-        return reply.getReplyNo();
     }
 
     /**
      * 댓글 수정
      * @param reply
      */
-    public void modifyReply(Reply reply) {
+    @Transactional
+    public void modifyReply(Reply reply) throws Exception{
         replyMapper.updateReply(reply);
     }
 
@@ -57,7 +59,8 @@ public class ReplyService {
      * 댓글 삭제 
      * @param reply
      */
-    public void removeReply(Reply reply) {
+    @Transactional
+    public void removeReply(Reply reply) throws Exception{
         replyMapper.delReply(reply);
     }
 
@@ -66,7 +69,7 @@ public class ReplyService {
      * @param boardNo
      * @return
      */
-    public int getReplyCnt(int boardNo) {
+    public int getReplyCnt(int boardNo) throws Exception{
         return replyMapper.selectReplyCnt(boardNo);
     }
 }

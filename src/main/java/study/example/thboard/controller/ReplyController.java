@@ -5,10 +5,7 @@ import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import study.example.thboard.service.ReplyService;
 import study.example.thboard.vo.Reply;
 
@@ -37,4 +34,15 @@ public class ReplyController {
         }
         return new ResponseEntity<>(replyList, HttpStatus.OK);
     }
-}
+
+    /**
+     * 댓글 등록
+     * @param boardNo
+     * @return
+     */
+    @PostMapping(value = "/replys/{boardNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public int saveReply(@PathVariable int boardNo, @ModelAttribute Reply reply) throws Exception {
+        replyService.saveReply(reply);
+        return reply.getReplyNo();
+    }
+ }

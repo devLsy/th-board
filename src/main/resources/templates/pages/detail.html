@@ -14,17 +14,14 @@
 
         //댓글 리스트
         function getReplyList() {
-            let boardNo = 0;
-                boardNo = [[ ${info.boardNo} ]];
+            const boardNo = $("#boardNo").val();
             // console.log("boardNo : " + boardNo);
             $.ajax({
                 url : '/replys/' + boardNo,
                 type : 'get',
                 dataType : 'json',
-                data : {'boardNo': boardNo},
                 ansync : false,
                 success: function (result) {
-                    console.log(result);
                     // 1. 조회된 데이터가 없는 경우
                     if ( !result.length ) {
                         $(".reply_list").html("등록된 댓글이 없다.");
@@ -39,7 +36,7 @@
                                 <div class="cont"><div class="txt_con">${row.content}</div></div>
                                 <p class="func_btns">
                                     <button type="button" onclick="" class="btns"><span class="icons icon_modify">수정</span></button>
-                                    <button type="button" class="btns"><span class="icons icon_del">삭제</span></button>
+                                    <button type="button" class="btn btn-danger"><span class="icons icon_del">삭제</span></button>
                                 </p>
                             </div>
                         `;
@@ -52,6 +49,34 @@
 
             });
         }
+
+        //댓글 등록
+        function saveReply() {
+            const content = $("#content").val();
+            const boardNo = $("#boardNo").val();
+            const params = {
+                boardNo : boardNo,
+                content : content,
+                writer : '촌마'
+            }
+
+            $.ajax({
+                url : '/replys/' + boardNo,
+                type : 'post',
+                dataType : 'json',
+                data : params,
+                ansync: false,
+                success: function (result) {
+                    console.log(result);
+                    alert(result +  "번 댓글이 저장되었습니다.");
+                    $("#content").val('');
+                    getReplyList();
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        }
     </script>
 
 <!-- Content -->
@@ -60,7 +85,7 @@
       <main>
         <div class="container-fluid px-4">
           <h1>게시글 상세</h1>
-            <input type="hidden" name="boardNo" th:value="${info?.boardNo}">
+            <input type="hidden" name="boardNo" id="boardNo" th:value="${info?.boardNo}">
             제목: <input type="text" name="title" th:value="${info?.title}" class="form-control"> <br>
             내용: <textarea name="content" th:text="${info?.content}" class="form-control col-sm-5"></textarea>
 
@@ -80,12 +105,12 @@
             </div>
 
            <!--댓글 작성-->
-            <div class="cm_write">
+            <div>
                 <fieldset>
                     <legend class="skipinfo">댓글 입력</legend>
                     <div class="cm_input">
-                        <p><textarea id="contents" name="contents" onkeyup="" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
-                        <span><button type="button" class="btns" onclick="">등록</button></span>
+                        <p><textarea id="content" name="content" onkeyup="" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
+                        <span><button type="button" class="btn btn-success" onclick="saveReply()">등록</button></span>
                     </div>
                 </fieldset>
             </div>
