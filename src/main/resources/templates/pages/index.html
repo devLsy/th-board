@@ -34,14 +34,14 @@
           <h1>게시글 관리</h1>
 
             <div class="input-group mb3">
-                <select name="type" th:field="*{type}">
-                    <option value="">--</option>
-                    <option value="W">작성자</option>
-                    <option value="T">제목</option>
-                    <option value="C">내용</option>
-                </select>
-                <input type="text" name="keyword" th:field="*{keyword}">
-                <button type="button" id="btnSearch" class="btn btn-secondary">검색</button>
+<!--                <select name="type" th:field="*{type}">-->
+<!--                    <option value="">&#45;&#45;</option>-->
+<!--                    <option value="W">작성자</option>-->
+<!--                    <option value="T">제목</option>-->
+<!--                    <option value="C">내용</option>-->
+<!--                </select>-->
+<!--                <input type="text" name="keyword" th:field="*{keyword}">-->
+<!--                <button type="button" id="btnSearch" class="btn btn-secondary">검색</button>-->
             </div>
 
             <table class="table table-striped table-sm">
@@ -69,6 +69,25 @@
                                     </tbody>
                                 </table>
         </div>
+
+        <!-- 게시판 하단 페이지네이션 영역 start -->
+        <nav aria-label="Page navigation">
+            <ul class="pagination justify-content-center">
+                <!-- prev -->
+                <li class="page-item" th:if="${pageMaker.prev} == true">
+                    <a class="page-link" th:href="@{/(pageNum=${pageMaker.startPage}-1)}">Prev</a>
+                </li>
+                <!-- pageMaker의 startPage부터 endPage까지 루프, a태그의 href에 idx를 링크(get방식으로 pageNum을 붙여서) -->
+                <li class="page-item" id="paginate_btn" th:each="idx: ${#numbers.sequence(pageMaker.startPage, pageMaker.endPage)}" th:classappend="${pageMaker.cri.pageNum} == ${idx} ? active : null">
+                    <a class="page-link" th:href="@{/(pageNum=${idx})}" th:text="${idx}"></a>
+                </li>
+                <!-- next -->
+                <li class="page-item" th:if="${pageMaker.next} == true and ${pageMaker.endPage > 0}">
+                    <a class="page-link" th:href="@{/(pageNum=${pageMaker.endPage}+1)}">Next</a>
+                </li>
+            </ul>
+        </nav>
+        <!-- // 게시판 하단의 페이지네이션 영역 end -->
 
           <button type="button" id="btnSave" class="btn btn-info">글쓰기</button>
 

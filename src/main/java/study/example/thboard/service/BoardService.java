@@ -6,6 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import study.example.thboard.mapper.BoardMapper;
 import study.example.thboard.vo.BoardVo;
+import study.example.thboard.vo.Criteria;
 
 import java.util.List;
 
@@ -19,12 +20,20 @@ public class BoardService {
 
     /**
      * 게시글 목록 조회
-     * @param boardVo
+     * @param cri
      * @throws Exception
      * @return
      */
-    public List<BoardVo> getBoards(BoardVo boardVo) throws Exception{
-        return boardMapper.selectBoards(boardVo);
+    public List<BoardVo> getBoards(Criteria cri) throws Exception{
+        return boardMapper.selectBoards(cri);
+    }
+
+    /**
+     * 게시글 전체 카운트
+     * @return
+     */
+    public int getTotBoardCnt() {
+        return boardMapper.selectTotBoardCnt();
     }
 
     /**

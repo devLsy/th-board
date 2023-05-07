@@ -4,25 +4,26 @@
 <mapper namespace="study.example.thboard.mapper.BoardMapper">
 
 <!-- 검색 parameter값 -->
-<sql id="searchParam">
-    <!-- 제목 -->
-    <if test="type == 'T'.toString()">
-        AND TITLE LIKE '%' || #{keyword} || '%'
-    </if>
-    <!-- 내용 -->
-    <if test="type == 'C'.toString()">
-        AND CONTENT LIKE '%' || #{keyword} || '%'
-    </if>
-    <!-- 작성자 -->
-    <if test="type == 'W'.toString()">
-        AND WRITER LIKE '%' || #{keyword} || '%'
-    </if>
-</sql>
+<!--<sql id="searchParam">-->
+<!--    &lt;!&ndash; 제목 &ndash;&gt;-->
+<!--    <if test="type == 'T'.toString()">-->
+<!--        AND TITLE LIKE '%' || #{keyword} || '%'-->
+<!--    </if>-->
+<!--    &lt;!&ndash; 내용 &ndash;&gt;-->
+<!--    <if test="type == 'C'.toString()">-->
+<!--        AND CONTENT LIKE '%' || #{keyword} || '%'-->
+<!--    </if>-->
+<!--    &lt;!&ndash; 작성자 &ndash;&gt;-->
+<!--    <if test="type == 'W'.toString()">-->
+<!--        AND WRITER LIKE '%' || #{keyword} || '%'-->
+<!--    </if>-->
+<!--</sql>-->
 
     <!--게시글 목록 조회-->
-    <select id="selectBoards" parameterType="BoardVo" resultType="BoardVo">
+    <select id="selectBoards" parameterType="Criteria" resultType="BoardVo">
         /* 게시글 목록 조회 */
-        SELECT ROWNUM AS no
+        <![CDATA[
+        SELECT T1.no
 	         , T1.boardNo
 	         , T1.title
 	         , T1.content
@@ -30,19 +31,28 @@
 	         , T1.createDate
 	         , T1.updateDate
 	      FROM
-              (SELECT BOARD_NO AS boardNo
-                    , TITLE AS title
-                    , CONTENT AS content
-                    , WRITER AS writer
-                    , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS createDate
-                    , TO_CHAR(UPDATE_DATE, 'YYYY-MM-DD') AS updateDate
-                 FROM BOARD
-                WHERE 1=1
-                  AND USE_YN = 'Y'
-                  <include refid="searchParam"/>
-                ORDER BY CREATE_DATE DESC
+              (SELECT /*+ INDEX_DESC(BOARD BOARD_PK)*/
+                       rownum AS no
+                     , BOARD_NO AS boardNo
+                     , TITLE AS title
+                     , CONTENT AS content
+                     , WRITER AS writer
+                     , CREATE_DATE AS createDate
+                     , UPDATE_DATE AS updateDate
+                     , USE_YN
+                  FROM BOARD
+                 WHERE 1=1
+                   AND USE_YN = 'Y'
+
+                   AND rownum <= #{pageNum} * #{amount}
               )T1
-         WHERE 1=1
+         WHERE no > (#{pageNum} -1) * #{amount}
+         ]]>
+    </select>
+
+    <!--게시글 전체 카운트-->
+    <select id="selectTotBoardCnt" resultType="int">
+        SELECT COUNT(*) FROM BOARD
     </select>
 
     <!--게시글 작성-->

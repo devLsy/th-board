@@ -1,13 +1,13 @@
 package study.example.thboard.service;
 
 import lombok.extern.slf4j.Slf4j;
-import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.test.annotation.Commit;
 import study.example.thboard.mapper.BoardMapper;
-import study.example.thboard.vo.BoardVo;
+import study.example.thboard.vo.Criteria;
+
+import javax.crypto.Cipher;
 
 @SpringBootTest
 @Slf4j
@@ -15,6 +15,9 @@ class BoardServiceTest {
 
     @Autowired
     BoardMapper boardMapper;
+
+    @Autowired
+    BoardService boardService;
 
 //    @Test
 //    @DisplayName("등록")
@@ -67,5 +70,14 @@ class BoardServiceTest {
 //
 //        //then
 //    }
+
+//    }
+
+    @Test
+    public void testPagination() throws Exception {
+        Criteria cri = new Criteria(1,10);
+        boardService.getBoards(cri);
+
+    }
 
 }

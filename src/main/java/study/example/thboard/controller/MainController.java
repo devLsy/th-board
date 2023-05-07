@@ -2,30 +2,19 @@ package study.example.thboard.controller;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
-import org.codehaus.groovy.tools.shell.IO;
-import org.springframework.beans.factory.annotation.Value;
-import org.springframework.core.io.Resource;
-import org.springframework.core.io.UrlResource;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.util.UriUtils;
 import study.example.thboard.service.BoardService;
 import study.example.thboard.service.FileService;
-import study.example.thboard.service.UserService;
 import study.example.thboard.vo.BoardVo;
+import study.example.thboard.vo.Criteria;
+import study.example.thboard.vo.PageMaker;
 import study.example.thboard.vo.FileVo;
-import study.example.thboard.vo.UserVo;
 
 import javax.servlet.http.HttpServletRequest;
-import java.io.File;
 import java.io.IOException;
-import java.net.MalformedURLException;
-import java.nio.charset.StandardCharsets;
 import java.util.List;
 
 @Controller
@@ -39,16 +28,23 @@ public class MainController {
 
     /**
      * 게시글 목록 조회
+     * @param cri
      * @return
      */
     @GetMapping(value = "")
-    public ModelAndView main(@ModelAttribute BoardVo boardVo) {
+    public ModelAndView main(@ModelAttribute Criteria cri) {
+
         ModelAndView mv = new ModelAndView("pages/index");
         List<BoardVo> boardList = null;
 
         try {
-            boardList = boardService.getBoards(boardVo);
+            int totBoardCnt = boardService.getTotBoardCnt();
+            //게시글 목록
+            boardList = boardService.getBoards(cri);
+            PageMaker pageMaker = new PageMaker(totBoardCnt, cri);
             mv.addObject("list", boardList);
+            mv.addObject("pageMaker", pageMaker);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
