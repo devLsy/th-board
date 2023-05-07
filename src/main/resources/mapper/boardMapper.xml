@@ -49,8 +49,11 @@
     </select>
 
     <!--게시글 전체 카운트-->
-    <select id="selectTotBoardCnt" resultType="int">
-        SELECT COUNT(*) FROM BOARD
+    <select id="selectTotBoardCnt" parameterType="Criteria" resultType="int">
+        SELECT COUNT(*)
+          FROM BOARD
+         WHERE 1=1
+         <include refid="searchParam"/>
     </select>
 
     <!--게시글 작성-->

@@ -32,8 +32,8 @@ public class BoardService {
      * 게시글 전체 카운트
      * @return
      */
-    public int getTotBoardCnt() {
-        return boardMapper.selectTotBoardCnt();
+    public int getTotBoardCnt(Criteria cri) {
+        return boardMapper.selectTotBoardCnt(cri);
     }
 
     /**

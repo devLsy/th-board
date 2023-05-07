@@ -14,7 +14,7 @@ public interface BoardMapper {
     List<BoardVo> selectBoards(Criteria cri);
 
     /* 전체 게시글 카운트 */
-    int selectTotBoardCnt();
+    int selectTotBoardCnt(Criteria cri);
 
     /* 게시글 등록 */
     void insertBoard(BoardVo boardVo);

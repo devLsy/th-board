@@ -38,7 +38,7 @@ public class MainController {
         List<BoardVo> boardList = null;
 
         try {
-            int totBoardCnt = boardService.getTotBoardCnt();
+            int totBoardCnt = boardService.getTotBoardCnt(cri);
             //게시글 목록
             boardList = boardService.getBoards(cri);
             PageMaker pageMaker = new PageMaker(totBoardCnt, cri);
