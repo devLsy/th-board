@@ -17,20 +17,20 @@ class ReplyServiceTest {
     @Autowired
     ReplyService replyService;
 
-//    @Test
-//    @DisplayName("댓글등록")
-//    @Commit
-//    public void 댓글등록() throws Exception {
-//        //givin
-//        Reply reply = new Reply();
-//        reply.setBoardNo(353823);
-//        reply.setContent("댓글이다.");
-//        reply.setWriter("흑풍");
-//        replyService.saveReply(reply);
-//        //when
-//
-//        //then
-//    }
+    @Test
+    @DisplayName("댓글등록")
+    @Commit
+    public void 댓글등록() throws Exception {
+        //givin
+        Reply reply = new Reply();
+        reply.setBoardNo(353833);
+        reply.setContent("second 댓글");
+        reply.setWriter("한비광");
+        replyService.saveReply(reply);
+        //when
+
+        //then
+    }
 
 //    @Test
 //    @DisplayName("댓글수정")

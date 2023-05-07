@@ -15,7 +15,7 @@
 	         , T1.createDate
 	         , T1.updateDate
 	      FROM
-              (SELECT
+              (SELECT  /*+ INDEX_DESC(REPLY REPLY_PK)*/
                        REPLY_NO AS replyNo
                      , BOARD_NO AS boardNo
                      , CONTENT AS content
