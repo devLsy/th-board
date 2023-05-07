@@ -30,4 +30,71 @@
               )T1
           WHERE 1=1
     </select>
+
+    <!--댓글 상세 조회-->
+    <select id="selectReplyDetail" parameterType="map" resultType="Reply">
+        SELECT
+               REPLY_NO AS replyNo
+             , BOARD_NO AS boardNo
+             , CONTENT AS content
+             , WRITER AS writer
+             , DEL_YN AS delYn
+             , CREATE_DATE AS createDate
+             , UPDATE_DATE AS updateDate
+          FROM REPLY
+         WHERE 1=1
+           AND DEL_YN = 'Y'
+           AND BOARD_NO = #{boardNo}
+           AND REPLY_NO = #{replyNo}
+    </select>
+
+    <!--댓글 카운트-->
+    <select id="selectReplyCnt" parameterType="Reply" resultType="int">
+        SELECT COUNT(*)
+           FROM REPLY
+          WHERE 1=1
+            AND BOARD_NO = #{boardNo}
+    </select>
+
+    <!--댓글 삭제-->
+    <update id="delReply" parameterType="Reply">
+        UPDATE REPLY
+           SET DEL_YN = 'Y'
+         WHERE BOARD_NO = #{boardNo}
+           AND REPLY_NO = #{replyNo}
+    </update>
+
+    <!--댓글 수정-->
+    <update id="updateReply" parameterType="Reply">
+        UPDATE REPLY
+           SET CONTENT = #{content}
+             , UPDATE_DATE = SYSDATE
+         WHERE BOARD_NO = #{boardNo}
+           AND REPLY_NO = #{replyNo}
+    </update>
+        
+    <!--댓글 저장-->
+    <insert id="insertReply" parameterType="Reply">
+        <selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
+            SELECT REPLY_NO_SEQ.NEXTVAL FROM DUAL
+        </selectKey>
+        /* 댓글 작성 */
+        INSERT INTO REPLY
+            (
+                REPLY_NO
+              , BOARD_NO
+              , CONTENT
+              , WRITER
+              , CREATE_DATE
+            )
+        VALUES
+            (
+                #{replyNo}
+              , #{boardNo}
+              , #{content}
+              , #{writer}
+              , SYSDATE
+            )
+    </insert>
+
 </mapper>

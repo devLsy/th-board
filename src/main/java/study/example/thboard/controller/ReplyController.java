@@ -25,7 +25,7 @@ public class ReplyController {
      */
     @GetMapping("")
     public ResponseBody list(@RequestBody int boardNo) {
-    
+
         List<Reply> replyList = null;
         try {
             replyList = replyService.getReplys(boardNo);
