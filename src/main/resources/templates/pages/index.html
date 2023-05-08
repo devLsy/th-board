@@ -93,8 +93,9 @@
         </nav>
         <!-- // 게시판 하단의 페이지네이션 영역 end -->
 
+          <th:block th:if="${session.id != null}">
           <button type="button" id="btnSave" class="btn btn-info">글쓰기</button>
-
+          </th:block>
       </main>
       </form>
 </div>
