@@ -19,7 +19,15 @@ public class UserService {
 
     private final UserMapper userMapper;
 
-    public List<UserVo> getUsers() {
-        return userMapper.selectUsers();
+    /**
+     * 아이디/패스워드 확인
+     * @param id
+     * @param password
+     * @return
+     */
+    public Long login(String id, String password) {
+        UserVo useInfo = userMapper.selectByIdAndNo(id);
+
+        return useInfo.getPassword().equals(password) ? useInfo.getUserNo() : null;
     }
 }
