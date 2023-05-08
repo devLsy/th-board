@@ -24,7 +24,8 @@ public class UserController {
      */
     @GetMapping("/login")
     public String loginForm(HttpSession session) {
-        Long id = (Long)session.getAttribute("id");
+        String id = (String) session.getAttribute("id");
+        log.info("세션에 저장된 사용자 아이디" + id);
         return id != null ? "redirect:/" : "pages/login" ;
     }
 
@@ -36,10 +37,22 @@ public class UserController {
      */
     @PostMapping("/login")
     public String login(UserVo userVo, HttpSession session) {
-        Long id = userService.login(userVo.getId(), userVo.getPassword());
+        String id = userService.login(userVo.getId(), userVo.getPassword());
         if(id == null) return "redirect:/login";
 
         session.setAttribute("id", id);
         return "redirect:/";
+    }
+
+    /**
+     * 로그아웃
+     * @param session
+     * @return
+     */
+    @PostMapping("/logout")
+    public String logout(HttpSession session) {
+        log.info("로그아웃!");
+        session.invalidate();
+        return "redirect:/login";
     }
 }

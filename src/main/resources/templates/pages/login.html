@@ -11,6 +11,7 @@
 
 <!-- Content -->
 <div layout:fragment="content">
+    <form id="frm" action="/login" method="post">
     <div id="layoutAuthentication">
             <div id="layoutAuthentication_content">
                 <main>
@@ -22,11 +23,11 @@
                                     <div class="card-body">
                                         <form>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputEmail" type="email" placeholder="name@example.com" />
-                                                <label for="inputEmail">Email address</label>
+                                                <input class="form-control" id="id" name="id" type="id" placeholder="name@example.com" />
+                                                <label for="inputEmail">ID</label>
                                             </div>
                                             <div class="form-floating mb-3">
-                                                <input class="form-control" id="inputPassword" type="password" placeholder="Password" />
+                                                <input class="form-control" id="password" name="password" type="password" placeholder="Password" />
                                                 <label for="inputPassword">Password</label>
                                             </div>
                                             <div class="form-check mb-3">
@@ -35,7 +36,7 @@
                                             </div>
                                             <div class="d-flex align-items-center justify-content-between mt-4 mb-0">
                                                 <a class="small" href="password.html">Forgot Password?</a>
-                                                <a class="btn btn-primary" href="index.html">Login</a>
+                                                <button type="submit" class="btn btn-success">Login</button>
                                             </div>
                                         </form>
                                     </div>
@@ -63,5 +64,6 @@
                 </footer>
             </div>
         </div>
+    </form>
 </div>
 </html>

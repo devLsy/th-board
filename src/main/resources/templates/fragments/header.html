@@ -20,7 +20,18 @@
                         <li><a class="dropdown-item" href="#!">Settings</a></li>
                         <li><a class="dropdown-item" href="#!">Activity Log</a></li>
                         <li><hr class="dropdown-divider" /></li>
-                        <li><a class="dropdown-item" href="#!">Logout</a></li>
+                        <li><a class="dropdown-item" id="logout" href="#">Logout</a></li>
+                        <script>
+                            $(document).ready(function () {
+                                $("#logout").on("click", function () {
+                                    let form = $("<form></form>");
+                                    form.attr("method","post");
+                                    form.attr("action", "/logout");
+                                    form.appendTo("body");
+                                    form.submit();
+                                });
+                            });
+                        </script>
                     </ul>
                 </li>
             </ul>

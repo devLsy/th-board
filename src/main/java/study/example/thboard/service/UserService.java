@@ -25,9 +25,9 @@ public class UserService {
      * @param password
      * @return
      */
-    public Long login(String id, String password) {
-        UserVo useInfo = userMapper.selectByIdAndNo(id);
+    public String  login(String id, String password) {
+        UserVo useInfo = userMapper.selectById(id);
 
-        return useInfo.getPassword().equals(password) ? useInfo.getUserNo() : null;
+        return useInfo.getPassword().equals(password) ? useInfo.getId() : null;
     }
 }

@@ -12,5 +12,5 @@ import java.util.List;
 public interface UserMapper {
     
     /* 아이디로 사용자 정보 조회 */
-    UserVo selectByIdAndNo(@Param("id") String id);
+    UserVo selectById(@Param("id") String id);
 }

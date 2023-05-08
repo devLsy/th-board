@@ -4,7 +4,7 @@
 <mapper namespace="study.example.thboard.mapper.UserMapper">
 
     <!--로그인한 회원 정보-->
-    <select id="selectByIdAndNo" parameterType="map" resultType="UserVo">
+    <select id="selectById" parameterType="map" resultType="UserVo">
         SELECT USER_NO AS userNo
              , ID AS id
              , PASSWORD AS password
