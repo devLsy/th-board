@@ -68,7 +68,9 @@
                         <td th:text="${list.writer}"></td>
                         <td th:text="${list.createDate}"></td>
                         <td th:text="${list.updateDate}"></td>
+                        <th:block th:if="${session.id != null}">
                         <td><a href="#" th:href="'javascript:del('+${list.boardNo}+')'" class="btn btn-danger">삭제</a></td>
+                        </th:block>
                     </tr>
                 </tbody>
             </table>
