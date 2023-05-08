@@ -8,7 +8,7 @@ public class Reply extends CommonVo{
 
     private int replyNo;
     private int boardNo;
-    private String content;
-    private String writer;
+    private String replyContent;
+    private String replyWriter;
     private String delYn;
 }

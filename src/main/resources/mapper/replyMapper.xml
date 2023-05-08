@@ -9,8 +9,8 @@
         SELECT
 	           T1.replyNo
 	         , T1.boardNo
-	         , T1.content
-	         , T1.writer
+	         , T1.replyContent
+	         , T1.replyWriter
              , T1.delYn
 	         , T1.createDate
 	         , T1.updateDate
@@ -18,8 +18,8 @@
               (SELECT  /*+ INDEX_DESC(REPLY REPLY_PK)*/
                        REPLY_NO AS replyNo
                      , BOARD_NO AS boardNo
-                     , CONTENT AS content
-                     , WRITER AS writer
+                     , REPLY_CONTENT AS replyContent
+                     , REPLY_WRITER AS replyWriter
                      , DEL_YN AS delYn
                      , CREATE_DATE AS createDate
                      , UPDATE_DATE AS updateDate
@@ -33,11 +33,12 @@
 
     <!--댓글 상세 조회-->
     <select id="selectReplyDetail" parameterType="map" resultType="Reply">
+        /* 댓글 상세 조회 */
         SELECT
                REPLY_NO AS replyNo
              , BOARD_NO AS boardNo
-             , CONTENT AS content
-             , WRITER AS writer
+             , REPLY_CONTENT AS replyContent
+             , REPLY_WRITER AS replyWriter
              , DEL_YN AS delYn
              , CREATE_DATE AS createDate
              , UPDATE_DATE AS updateDate
@@ -49,6 +50,7 @@
 
     <!--댓글 카운트-->
     <select id="selectReplyCnt" parameterType="Reply" resultType="int">
+        /* 댓글 카운트 */
         SELECT COUNT(*)
            FROM REPLY
           WHERE 1=1
@@ -57,6 +59,7 @@
 
     <!--댓글 삭제-->
     <update id="delReply" parameterType="map">
+        /* 댓글 삭제 */
         UPDATE REPLY
            SET DEL_YN = 'Y'
          WHERE REPLY_NO = #{replyNo}
@@ -64,14 +67,16 @@
 
     <!--댓글 수정-->
     <update id="updateReply" parameterType="Reply">
+        /* 댓글 수정 */
         UPDATE REPLY
-           SET CONTENT = #{content}
+           SET REPLY_CONTENT = #{replyContent}
              , UPDATE_DATE = SYSDATE
          WHERE REPLY_NO = #{replyNo}
     </update>
 
     <!--댓글 저장-->
     <insert id="insertReply" parameterType="Reply">
+        /* 댓글 저장 */
         <selectKey keyProperty="replyNo" resultType="int" order="BEFORE">
             SELECT REPLY_NO_SEQ.NEXTVAL FROM DUAL
         </selectKey>
@@ -80,16 +85,16 @@
             (
                 REPLY_NO
               , BOARD_NO
-              , CONTENT
-              , WRITER
+              , REPLY_CONTENT
+              , REPLY_WRITER
               , CREATE_DATE
             )
         VALUES
             (
                 #{replyNo}
               , #{boardNo}
-              , #{content}
-              , #{writer}
+              , #{replyContent}
+              , #{replyWriter}
               , SYSDATE
             )
     </insert>

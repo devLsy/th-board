@@ -21,6 +21,7 @@ public class ReplyController {
 
     /**
      * 댓글 목록 조회
+     *
      * @param boardNo
      * @return
      */
@@ -38,6 +39,7 @@ public class ReplyController {
 
     /**
      * 댓글 등록
+     *
      * @param boardNo
      * @return
      */
@@ -49,15 +51,26 @@ public class ReplyController {
 
     /**
      * 댓글 삭제
+     *
      * @param replyNo
      * @return
      * @throws Exception
      */
-    @DeleteMapping(value = "replys/{replyNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    @DeleteMapping(value = "/replys/{replyNo}", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<?> delReply(@PathVariable int replyNo) throws Exception {
         replyService.removeReply(replyNo);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 
-
- }
+    /**
+     * 댓글 수정
+     * @param reply
+     * @return
+     * @throws Exception
+     */
+    @PostMapping(value = "/replys/update/{replyNo}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<?> updateReply(@ModelAttribute Reply reply) throws Exception{
+        replyService.modifyReply(reply);
+        return new ResponseEntity<>(HttpStatus.OK);
+    }
+}

@@ -14,8 +14,9 @@
 
         //댓글 리스트
         function getReplyList() {
+
             const boardNo = $("#boardNo").val();
-            $.ajax({
+            let ajaxResult = $.ajax({
                 url : '/replys/' + boardNo,
                 type : 'get',
                 dataType : 'json',
@@ -31,11 +32,11 @@
                      result.forEach(row => {
                         replyHtml += `
                             <div>
-                                <div class="cont"><div class="txt_con">${row.writer}</div></div>
-                                <div class="cont"><div class="txt_con">${row.content}</div></div>
+                                <div class="cont"><div class="txt_con">${row.replyWriter}</div></div>
+                                <input type="text" name="replyContent" id="replyContent" value="${row.replyContent}">
                                 <input type="hidden" id="replyNo" name="replyNo" data-no="${row.replyNo}">
                                 <p class="func_btns">
-                                    <button type="button" onclick="" class="btn btn-info"><span class="icons icon_modify">수정</span></button>
+                                    <button type="button" onclick="updateReply()" class="btn btn-info"><span class="icons icon_modify">수정</span></button>
                                     <button type="button" onclick="delReply()" class="btn btn-danger"><span class="icons icon_del">삭제</span></button>
                                 </p>
                             </div>
@@ -47,16 +48,17 @@
                     console.log(error);
                 }
             });
+            return ajaxResult.replyContent;
         }
 
         //댓글 등록
         function saveReply() {
-            const content = $("#content").val();
+            const replyContent = $("#replyContent").val();
             const boardNo = $("#boardNo").val();
             const params = {
                 boardNo : boardNo,
-                content : content,
-                writer : '촌마'//로그인 기능 구현 후 수정 예정
+                replyContent : replyContent,
+                replyWriter : '촌마'//로그인 기능 구현 후 수정 예정
             }
 
             $.ajax({
@@ -98,6 +100,35 @@
             });
         }
 
+        //댓글 수정
+        function updateReply() {
+            let replyNo = $("#replyNo").attr("data-no");
+            let replyContent = $("#replyContent").val();
+
+            const params = { replyNo : replyNo,
+                             replyContent : replyContent
+                            }
+
+            console.log("댓글 내용 : " + params.replyContent);
+
+            return;
+            $.ajax({
+                url : '/replys/update/' + replyNo,
+                type : 'post',
+                dataType : 'json',
+                data : params,
+                ansync: false,
+                success: function (result) {
+                    console.log(result);
+                    alert("수정 되었습니다.");
+                    location.reload();
+                },
+                error: function (request, status, error) {
+                    console.log(error);
+                }
+            });
+        }
+
     </script>
 
 <!-- Content -->
@@ -130,7 +161,7 @@
                 <fieldset>
                     <legend class="skipinfo">댓글 입력</legend>
                     <div class="cm_input">
-                        <p><textarea id="content" name="content" onkeyup="" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
+                        <p><textarea id="replyContent" name="replyContent" onkeyup="" cols="90" rows="4" placeholder="댓글을 입력해 주세요."></textarea></p>
                         <span><button type="button" class="btn btn-success" onclick="saveReply()">등록</button></span>
                     </div>
                 </fieldset>
@@ -140,7 +171,10 @@
             <!-- 댓글 리스트 시작 -->
             <div class="reply_list"></div>
 
-            <!-- 댓글 영역 종료 -->
+            <!-- 댓글 리스트 영역 종료 -->
+
+
+
         </div>
       </main>
 
