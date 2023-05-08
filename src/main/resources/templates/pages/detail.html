@@ -36,8 +36,10 @@
                                 <input type="text" name="replyContent" id="replyContent" value="${row.replyContent}">
                                 <input type="hidden" id="replyNo" name="replyNo" data-no="${row.replyNo}">
                                 <p class="func_btns">
-                                    <button type="button" onclick="updateReply()" class="btn btn-info"><span class="icons icon_modify">수정</span></button>
-                                    <button type="button" onclick="delReply()" class="btn btn-danger"><span class="icons icon_del">삭제</span></button>
+                                    <th:block th:if="${session.id != null}">
+                                        <button type="button" onclick="updateReply()" class="btn btn-info"><span class="icons icon_modify">수정</span></button>
+                                        <button type="button" onclick="delReply()" class="btn btn-danger"><span class="icons icon_del">삭제</span></button>
+                                    </th:block>
                                 </p>
                             </div>
                         `;
@@ -152,11 +154,14 @@
             작성자: <input type="text" name="writer" th:value="${info?.writer}" class="form-control" aria-label="readonly input example" readonly> <br>
 
             <div class="btn">
+            <th:block th:if="${session.id != null}">
                 <button type="button" id="btnUpdate" class="btn btn-primary">수정</button>
-                <a th:href="@{/}" class="link-info link-offset-2">목록</a>
+            </th:block>
+                <a th:href="@{/}" class="btn btn-dark">목록</a>
             </div>
 
            <!--댓글 작성-->
+            <th:block th:if="${session.id != null}">
             <div>
                 <fieldset>
                     <legend class="skipinfo">댓글 입력</legend>
@@ -166,6 +171,7 @@
                     </div>
                 </fieldset>
             </div>
+            </th:block>
             <!--댓글 작성 종료-->
 
             <!-- 댓글 리스트 시작 -->

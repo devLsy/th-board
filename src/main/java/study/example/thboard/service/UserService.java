@@ -25,7 +25,7 @@ public class UserService {
      * @param password
      * @return
      */
-    public String  login(String id, String password) {
+    public String login(String id, String password) {
         UserVo useInfo = userMapper.selectById(id);
 
         return useInfo.getPassword().equals(password) ? useInfo.getId() : null;
